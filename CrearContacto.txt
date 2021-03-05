@@ -1,0 +1,73 @@
+#CrearContacto
+import java.util.concurrent.Semaphore;
+
+public class Semaforo {
+
+	static Semaphore s;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		s=new Semaphore(1); 		//Valor inicial del semaforo
+		new Hilo(1,s).start();		//creo un hilo y lo arranco del tirón
+		new Hilo(2,s).start();
+		new Hilo(3,s).start();
+		new Hilo(4,s).start();
+		new Hilo(5,s).start();
+		
+	}
+
+}
+
+
+import java.util.concurrent.Semaphore;
+import java.util.Random;
+
+public class Hilo extends Thread {
+
+	int id;
+	Semaphore semaforo;
+	Random rand = new Random();
+	
+	public Hilo(int i, Semaphore s) {	//constructor
+		id=i;
+		semaforo=s;
+	}
+
+	private void ocupado(){}
+			
+	public void run(){
+		
+		System.out.println("no critica en " + id);
+		ocupado();
+		
+		//sección crítica
+		try {
+			semaforo.acquire();	
+		}	catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Entrando Sección Crítica "+id);
+		ocupado();
+		System.out.println("Saliendo Sección Crítica "+id);
+		semaforo.release();
+	
+				}
+}
+
+
+ <Expander x:Name="exp1" Header="Expandir" Height="100" Width="208" ExpandDirection="Right" Background="Orange" 
+                  MouseLeave="exp1_MouseLeave" Foreground="Snow" Expanded="exp1_Expanded" Margin="0,150,0,151" 
+                  
+                  >
+
+            <Grid Background="ForestGreen">
+                <WrapPanel Orientation="Vertical">
+                    <Button x:Name="bt1" Content="Opcion1" HorizontalAlignment="Center" Click="bt1_Click" Width="154"/>
+                    <Button x:Name="bt2" Content="Opcion2" HorizontalAlignment="Center" Width="154"/>
+                    <Button x:Name="bt3" Content="Opcion3" HorizontalAlignment="Center" Width="152" Click="bt3_Click"/>
+                </WrapPanel>
+            </Grid>
+
+        </Expander>
+
+

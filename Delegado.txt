@@ -1,3 +1,4 @@
+#Danilo
 Programa02_04DelegadoSencillo
 
 using System;
